@@ -2,7 +2,6 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <!-- 必须包含这行，不然手机端无法自动适配比例 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>湖北省普通高中学业水平合格性考试 - 考务考籍管理平台</title>
     <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>鄂</text></svg>">
@@ -40,17 +39,15 @@
             width: 100%;
         }
         
-        /* 真实Logo图片 */
-        .logo-img {
+        /* 内嵌 SVG Logo */
+        .logo-svg {
             width: 70px;
             height: 70px;
-            border-radius: 50%;
-            background: #ffffff;
-            border: 2px solid #fff;
             margin-right: 20px;
             flex-shrink: 0;
-            object-fit: contain;
-            padding: 4px; /* 让白边更自然 */
+            border-radius: 50%;
+            background: #ffffff;
+            border: 2px solid #ffffff;
         }
 
         .banner-text {
@@ -265,30 +262,26 @@
             border-radius: 12px;
         }
 
-        /* ============= 新增手机端专属适配 ============= */
+        /* ============= 手机端专属适配 ============= */
         @media screen and (max-width: 720px) {
             .header-banner { height: auto; padding: 15px 10px; }
             .banner-content { flex-direction: row; align-items: center; }
-            .logo-img { width: 50px; height: 50px; margin-right: 12px; }
+            .logo-svg { width: 50px; height: 50px; margin-right: 12px; }
             .banner-text h1 { font-size: 14px; letter-spacing: 1px; }
             .banner-text h2 { font-size: 16px; letter-spacing: 1px; }
 
             .login-wrapper { margin-top: 20px; width: 95%; border-radius: 6px; }
             .panel-body { padding: 25px 20px 20px 20px; }
-
-            /* 表单变为上下结构：标签在输入框上方 */
             .form-group { flex-direction: column; align-items: flex-start; margin-bottom: 15px; }
             .form-group label { width: auto; text-align: left; margin-right: 0; margin-bottom: 8px; font-size: 16px; }
             .form-group input { width: 100%; padding: 14px 15px; font-size: 16px; }
 
-            /* 验证码区自动换行布局 */
             .captcha-row { margin-bottom: 25px; }
             .captcha-group { flex-wrap: wrap; }
             .captcha-group input { width: 100%; margin-bottom: 10px; }
             #captchaCanvas { width: 100px; height: 36px; margin: 0 10px 0 0; }
             .refresh-btn { margin-top: 0; font-size: 15px; align-self: center; }
 
-            /* 按钮自适应宽度 */
             .btn-group { gap: 15px; justify-content: space-between; }
             .btn-group button { flex: 1; padding: 14px 0; font-size: 16px; width: auto; }
 
@@ -301,8 +294,18 @@
 
     <div class="header-banner">
         <div class="banner-content">
-            <!-- 已替换为真实Logo图片，请确保同级目录下有名为 logo.png 的文件 -->
-            <img src="logo.png" class="logo-img" alt="湖北教育考试院">
+            <!-- 直接嵌入 SVG 矢量Logo，无需外部图片，完美解决缩放和404问题！ -->
+            <svg class="logo-svg" viewBox="0 0 100 100">
+                <circle cx="50" cy="50" r="47" fill="white" stroke="#2b66a9" stroke-width="3"/>
+                <circle cx="50" cy="50" r="31" fill="#2b66a9"/>
+                <!-- 模拟地球环线 -->
+                <path d="M 30,70 Q 50,40 70,70" fill="none" stroke="white" stroke-width="4"/>
+                <path d="M 30,45 Q 50,75 70,45" fill="none" stroke="white" stroke-width="4"/>
+                <!-- 文字 -->
+                <text x="50" y="23" font-family="Georgia, serif" font-weight="bold" font-size="15" fill="#2b66a9" text-anchor="middle" letter-spacing="1">HBEA</text>
+                <text x="50" y="88" font-family="'Microsoft YaHei', sans-serif" font-weight="bold" font-size="11" fill="#2b66a9" text-anchor="middle" letter-spacing="1.5">湖北考试</text>
+                <circle cx="31" cy="18" r="2.8" fill="#2b66a9"/><circle cx="69" cy="18" r="2.8" fill="#2b66a9"/>
+            </svg>
             <div class="banner-text">
                 <h1>湖北省普通高中学业水平合格性考试</h1>
                 <h2>考务考籍管理与公共信息服务平台</h2>
@@ -333,7 +336,6 @@
             </div>
             <div class="error-msg" id="msgTip"></div>
             
-            <!-- 功能链接完善，点击后会弹出“系统维护”提示 -->
             <div class="panel-footer">
                 <a href="javascript:void(0)" onclick="alert('由于系统升级维护中，该功能暂时无法使用。如有需要，请前往湖北省教育考试院官方网站。')">忘记密码？</a> | 
                 <a href="javascript:void(0)" onclick="alert('由于系统升级维护中，该功能暂时无法使用。如有需要，请前往湖北省教育考试院官方网站。')">找回用户名</a>
@@ -449,10 +451,8 @@
 
 <!-- 
     【隐藏的整蛊说明】
-    目标“演员”：李纹
-    登录秘密：只需输入“李纹” + 正确的图形验证码
-    防露馅提示：点击底部“湖北教育考试院 版权所有”可弹出整蛊说明，点击“忘记密码”和“找回用户名”会提示系统维护中，让整蛊更逼真。
-    注意：需要在同级目录下放 logo.png 才能显示Logo。
+    注意：本次代码已经将 HBEA 的 Logo 直接转换成 SVG 矢量图画在 HTML 中了，你不需要再上传 logo.png。
+    整蛊目标：输入姓名“李纹”+ 正确验证码，即可看到挂科成绩单。
 -->
 </body>
 </html>
