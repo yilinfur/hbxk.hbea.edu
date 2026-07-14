@@ -2,8 +2,10 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- 必须包含这行，不然手机端无法自动适配比例 -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>湖北省普通高中学业水平合格性考试 - 考务考籍管理平台</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>鄂</text></svg>">
     <style>
         * {
             margin: 0;
@@ -37,7 +39,6 @@
             max-width: 960px;
             width: 100%;
         }
-        /* 模拟官网Logo（由于无原图，用图形绘制） */
         .logo-icon {
             width: 70px;
             height: 70px;
@@ -69,7 +70,7 @@
             margin-top: 2px;
         }
 
-        /* 登录面板居中 */
+        /* 登录面板 */
         .login-wrapper {
             width: 100%;
             max-width: 680px;
@@ -80,8 +81,6 @@
             box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
             border: 1px solid rgba(255,255,255,0.5);
         }
-
-        /* 面板标题栏（深蓝灰底色） */
         .panel-header {
             background: #203a55;
             color: #fff;
@@ -91,8 +90,6 @@
             letter-spacing: 4px;
             border-radius: 4px 4px 0 0;
         }
-
-        /* 面板主体 */
         .panel-body {
             padding: 40px 50px 30px 50px;
         }
@@ -110,8 +107,6 @@
             margin-right: 20px;
             font-weight: 500;
         }
-
-        /* 深色输入框（仿图中的深色背景+白字） */
         .form-group input {
             flex: 1;
             padding: 12px 15px;
@@ -131,7 +126,6 @@
             background: #1f2633;
         }
 
-        /* 验证码行 */
         .captcha-row {
             margin-bottom: 35px;
         }
@@ -160,7 +154,6 @@
         }
         .refresh-btn:hover { text-decoration: underline; }
 
-        /* 按钮行 */
         .btn-group {
             display: flex;
             gap: 20px;
@@ -182,7 +175,6 @@
         .btn-reset { background: #3d4959; }
         .btn-reset:hover { background: #2d3643; }
 
-        /* 错误提示 */
         .error-msg {
             text-align: center;
             color: #e34d59;
@@ -190,7 +182,6 @@
             margin-top: 15px;
             height: 22px;
         }
-
         .panel-footer {
             text-align: center;
             margin-top: 15px;
@@ -252,7 +243,6 @@
         }
         .btn-back:hover { background: #13273d; }
 
-        /* 底部版权与隐藏整蛊说明 */
         .footer-note {
             margin-top: 40px;
             padding-bottom: 20px;
@@ -271,11 +261,41 @@
             padding: 0 4px;
             border-radius: 12px;
         }
+
+        /* ============= 新增手机端专属适配 ============= */
+        @media screen and (max-width: 720px) {
+            .header-banner { height: auto; padding: 15px 10px; }
+            .banner-content { flex-direction: row; align-items: center; }
+            .logo-icon { width: 50px; height: 50px; font-size: 22px; margin-right: 12px; }
+            .banner-text h1 { font-size: 14px; letter-spacing: 1px; }
+            .banner-text h2 { font-size: 16px; letter-spacing: 1px; }
+
+            .login-wrapper { margin-top: 20px; width: 95%; border-radius: 6px; }
+            .panel-body { padding: 25px 20px 20px 20px; }
+
+            /* 表单变为上下结构：标签在输入框上方 */
+            .form-group { flex-direction: column; align-items: flex-start; margin-bottom: 15px; }
+            .form-group label { width: auto; text-align: left; margin-right: 0; margin-bottom: 8px; font-size: 16px; }
+            .form-group input { width: 100%; padding: 14px 15px; font-size: 16px; }
+
+            /* 验证码区自动换行布局 */
+            .captcha-row { margin-bottom: 25px; }
+            .captcha-group { flex-wrap: wrap; }
+            .captcha-group input { width: 100%; margin-bottom: 10px; }
+            #captchaCanvas { width: 100px; height: 36px; margin: 0 10px 0 0; }
+            .refresh-btn { margin-top: 0; font-size: 15px; align-self: center; }
+
+            /* 按钮自适应宽度 */
+            .btn-group { gap: 15px; justify-content: space-between; }
+            .btn-group button { flex: 1; padding: 14px 0; font-size: 16px; width: auto; }
+
+            .panel-footer { font-size: 14px; margin-top: 20px; }
+            .footer-note { font-size: 12px; padding: 0 15px 20px 15px; }
+        }
     </style>
 </head>
 <body>
 
-    <!-- 顶部全宽官方横幅 -->
     <div class="header-banner">
         <div class="banner-content">
             <div class="logo-icon">鄂</div>
@@ -286,11 +306,9 @@
         </div>
     </div>
 
-    <!-- 登录面板 -->
     <div class="login-wrapper">
         <div class="panel-header">登 录</div>
         <div class="panel-body">
-            <!-- 为了精准复原，这里标签显示为"用户名"，但实际逻辑仅校验姓名 -->
             <div class="form-group">
                 <label>用户名</label>
                 <input type="text" id="nameInput" placeholder="请输入考生姓名">
@@ -316,7 +334,6 @@
         </div>
     </div>
 
-    <!-- 整蛊成绩单（遮罩层） -->
     <div class="result-overlay" id="resultPage">
         <div class="result-card">
             <h3>李纹 - 合格性考试成绩</h3>
@@ -333,13 +350,11 @@
         </div>
     </div>
 
-    <!-- 底部版权与整蛊彩蛋（点击小字触发说明） -->
     <div class="footer-note">
         <span id="easterEgg">湖北教育考试院 版权所有</span> | 鄂ICP备...
     </div>
 
 <script>
-    // 隐藏的整蛊说明（如果朋友发现了，点击底部版权即可揭露谜底）
     const HIDDEN_PRANK_NOTE = "【整蛊说明】本页面为高仿登录界面，无需输入密码。系统预设了“李纹”的成绩，输入姓名“李纹”并正确输入验证码，即可查看整蛊成绩单。本页面仅用于朋友之间娱乐使用，请勿作他用。";
 
     const nameInput = document.getElementById('nameInput');
@@ -355,7 +370,6 @@
 
     let correctCaptcha = '';
 
-    // 生成验证码
     function drawCaptcha() {
         const chars = '0123456789ABCDEFGHJKLMNPQRSTUVWXYZ';
         correctCaptcha = '';
@@ -367,7 +381,6 @@
         ctx.fillStyle = '#ebf0f6';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // 干扰线
         for (let i = 0; i < 4; i++) {
             ctx.strokeStyle = `rgba(${Math.random()*150+100},${Math.random()*150+100},${Math.random()*150+100},0.7)`;
             ctx.beginPath();
@@ -376,7 +389,6 @@
             ctx.stroke();
         }
 
-        // 验证码文字
         ctx.font = 'bold 22px Arial';
         ctx.fillStyle = '#333';
         ctx.textAlign = 'center';
@@ -388,10 +400,8 @@
         }
     }
 
-    // 初始化
     drawCaptcha();
 
-    // 重置
     resetBtn.onclick = function() {
         nameInput.value = '';
         captchaInput.value = '';
@@ -399,12 +409,10 @@
         drawCaptcha();
     };
 
-    // 登录点击
     loginBtn.onclick = function() {
         const name = nameInput.value.trim();
         const code = captchaInput.value.trim().toUpperCase();
 
-        // 1. 验证码校验
         if (code !== correctCaptcha) {
             msgTip.textContent = '验证码错误，请重新输入';
             drawCaptcha();
@@ -412,9 +420,7 @@
             return;
         }
 
-        // 2. 姓名校验（因为整蛊设置，只需输入“李纹”）
         if (name === '李纹') {
-            // 成功，弹出成绩
             resultPage.style.display = 'flex';
             msgTip.textContent = '';
         } else {
@@ -424,25 +430,16 @@
         }
     };
 
-    // 返回首页
     backBtn.onclick = function() {
         resultPage.style.display = 'none';
         resetBtn.click();
     };
 
-    // 隐藏的整蛊说明（点击底部的“湖北教育考试院 版权所有”触发）
     easterEgg.onclick = function() {
         alert(HIDDEN_PRANK_NOTE);
     };
 </script>
 
-<!-- 
-    [源代码隐藏整蛊说明]
-    此页面为纯PC端视觉复原整蛊页面。
-    1. 无需输入密码，没有密码框。
-    2. 仅需在"用户名"处输入“李纹”，并正确输入验证码，即可触发展示“3门不合格”的成绩单。
-    3. 底部版权小字“湖北教育考试院 版权所有”点击后可查看使用说明。
-    仅供娱乐。
--->
+<!-- 隐藏整蛊说明 -->
 </body>
 </html>
