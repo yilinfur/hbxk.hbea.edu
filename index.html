@@ -1,5 +1,11 @@
 <!DOCTYPE html>
 <html lang="zh-CN">
+<script>
+    // 强制浏览器加载后，地址栏显示我们想要的完整路径
+    if (window.location.pathname !== '/hbxk.hbea.edu/') {
+        window.history.replaceState({}, document.title, '/hbxk.hbea.edu/');
+    }
+</script>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
