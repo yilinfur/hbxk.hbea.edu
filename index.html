@@ -39,21 +39,20 @@
             max-width: 960px;
             width: 100%;
         }
-        .logo-icon {
+        
+        /* 真实Logo图片 */
+        .logo-img {
             width: 70px;
             height: 70px;
-            background: rgba(255,255,255,0.9);
             border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #1482f0;
-            font-size: 32px;
-            font-weight: bold;
-            border: 3px solid #fff;
+            background: #ffffff;
+            border: 2px solid #fff;
             margin-right: 20px;
             flex-shrink: 0;
+            object-fit: contain;
+            padding: 4px; /* 让白边更自然 */
         }
+
         .banner-text {
             color: #ffffff;
             line-height: 1.5;
@@ -192,6 +191,10 @@
             color: #1482f0;
             text-decoration: none;
             margin: 0 6px;
+            cursor: pointer;
+        }
+        .panel-footer a:hover {
+            text-decoration: underline;
         }
 
         /* 整蛊成绩单遮罩层 */
@@ -266,7 +269,7 @@
         @media screen and (max-width: 720px) {
             .header-banner { height: auto; padding: 15px 10px; }
             .banner-content { flex-direction: row; align-items: center; }
-            .logo-icon { width: 50px; height: 50px; font-size: 22px; margin-right: 12px; }
+            .logo-img { width: 50px; height: 50px; margin-right: 12px; }
             .banner-text h1 { font-size: 14px; letter-spacing: 1px; }
             .banner-text h2 { font-size: 16px; letter-spacing: 1px; }
 
@@ -298,7 +301,8 @@
 
     <div class="header-banner">
         <div class="banner-content">
-            <div class="logo-icon">鄂</div>
+            <!-- 已替换为真实Logo图片，请确保同级目录下有名为 logo.png 的文件 -->
+            <img src="logo.png" class="logo-img" alt="湖北教育考试院">
             <div class="banner-text">
                 <h1>湖北省普通高中学业水平合格性考试</h1>
                 <h2>考务考籍管理与公共信息服务平台</h2>
@@ -328,8 +332,11 @@
                 <button class="btn-reset" id="resetBtn">重置</button>
             </div>
             <div class="error-msg" id="msgTip"></div>
+            
+            <!-- 功能链接完善，点击后会弹出“系统维护”提示 -->
             <div class="panel-footer">
-                <a href="#">忘记密码？</a> | <a href="#">找回用户名</a>
+                <a href="javascript:void(0)" onclick="alert('由于系统升级维护中，该功能暂时无法使用。如有需要，请前往湖北省教育考试院官方网站。')">忘记密码？</a> | 
+                <a href="javascript:void(0)" onclick="alert('由于系统升级维护中，该功能暂时无法使用。如有需要，请前往湖北省教育考试院官方网站。')">找回用户名</a>
             </div>
         </div>
     </div>
@@ -440,6 +447,12 @@
     };
 </script>
 
-<!-- 隐藏整蛊说明 -->
+<!-- 
+    【隐藏的整蛊说明】
+    目标“演员”：李纹
+    登录秘密：只需输入“李纹” + 正确的图形验证码
+    防露馅提示：点击底部“湖北教育考试院 版权所有”可弹出整蛊说明，点击“忘记密码”和“找回用户名”会提示系统维护中，让整蛊更逼真。
+    注意：需要在同级目录下放 logo.png 才能显示Logo。
+-->
 </body>
 </html>
